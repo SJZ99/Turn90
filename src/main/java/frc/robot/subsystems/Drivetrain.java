@@ -21,23 +21,30 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Robot;
 
 public class Drivetrain extends SubsystemBase {
+
   public static int turn = 0;
   double lastYaw = 0;
-  WPI_TalonFX rightmotor = new WPI_TalonFX(18);
+
+  static WPI_TalonFX rightmotor = new WPI_TalonFX(18);
   WPI_TalonFX rightmotorS = new WPI_TalonFX(20);
 
-  WPI_TalonFX leftmotor = new WPI_TalonFX(19);
+  static WPI_TalonFX leftmotor = new WPI_TalonFX(19);
   WPI_TalonFX leftmotorS = new WPI_TalonFX(21);
 
-  AHRS ahrs = new AHRS(SPI.Port.kMXP);
   public static DifferentialDrive drive = new DifferentialDrive(leftmotor, rightmotor);
+  
+
+  AHRS ahrs = new AHRS(SPI.Port.kMXP);
   // ADIS16448_IMU gyro;
 
 
@@ -87,9 +94,8 @@ public class Drivetrain extends SubsystemBase {
   public double getlastYaw(){
     return lastYaw;
   }
-  public void setOutput(double left, double right){
-    rightmotor.set(ControlMode.PercentOutput, right);
-    leftmotor.set(ControlMode.PercentOutput, left);
+  public void setOutput(double zRotation){
+    drive.arcadeDrive(Robot.m_robotContainer.stick.getY(), zRotation);
   }
   public void turn(int target){
     double curr = getYaw();
@@ -103,7 +109,7 @@ public class Drivetrain extends SubsystemBase {
     // }
     SmartDashboard.putNumber("curr", curr);
     SmartDashboard.putNumber("target", target);
-    setOutput(0.005 * error, -0.01 * error);
+    setOutput(0.01 * error);
   }
   public void setTurn(int setpoint){
     turn = setpoint;

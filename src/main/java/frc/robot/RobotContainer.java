@@ -33,9 +33,8 @@ public class RobotContainer {
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  Joystick stick = new Joystick(0);
- // JoystickButton button3 = new JoystickButton(stick, 3);
-  //JoystickButton button4 = new JoystickButton(stick, 4);
+  public Joystick stick = new Joystick(0);
+
   public RobotContainer() {
     // Configure the button bindings
 

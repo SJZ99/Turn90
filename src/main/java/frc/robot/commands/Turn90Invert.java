@@ -39,7 +39,7 @@ public class Turn90Invert extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Drivetrain.turn = 0;
-    Robot.drive.setOutput(0, 0);
+    Robot.drive.setOutput(0);
   }
 
   // Returns true when the command should end.
