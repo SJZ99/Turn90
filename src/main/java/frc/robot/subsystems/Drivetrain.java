@@ -30,11 +30,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class Drivetrain extends SubsystemBase {
   public static int turn = 0;
   double lastYaw = 0;
-  WPI_TalonFX rightmotor = new WPI_TalonFX(18);
-  WPI_TalonFX rightmotorS = new WPI_TalonFX(20);
+  static WPI_TalonFX rightmotor = new WPI_TalonFX(18);
+  static WPI_TalonFX rightmotorS = new WPI_TalonFX(20);
 
-  WPI_TalonFX leftmotor = new WPI_TalonFX(19);
-  WPI_TalonFX leftmotorS = new WPI_TalonFX(21);
+  static WPI_TalonFX leftmotor = new WPI_TalonFX(19);
+  static WPI_TalonFX leftmotorS = new WPI_TalonFX(21);
 
   AHRS ahrs = new AHRS(SPI.Port.kMXP);
   public static DifferentialDrive drive = new DifferentialDrive(leftmotor, rightmotor);
